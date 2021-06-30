@@ -5,8 +5,8 @@
 ACE Working Group                                           F. Palombini
 Internet-Draft                                               Ericsson AB
 Intended status: Standards Track                               M. Tiloca
-Expires: 16 October 2021                                         RISE AB
-                                                           14 April 2021
+Expires: 1 January 2022                                          RISE AB
+                                                            30 June 2021
 
 
            Key Provisioning for Group Communication using ACE
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 October 2021.
+   This Internet-Draft will expire on 1 January 2022.
 
 Copyright Notice
 
@@ -190,6 +190,19 @@ Table of Contents
       include, for instance, provisioning, revocation and distribution
       of keying material.  An application profile may define specific
       procedures and message formats.
+
+   *  Signature-only group, to indicate a group where group members use
+      exclusively digital signatures to achieve source authentication.
+
+   *  Pairwise-only group, to indicate a group where group members never
+      use digital signatures to achieve source authentication.  Instead,
+      they rather use exclusively pairwise symmetric keying material,
+      derived from the group keying material and a static-static Diffie-
+      Hellman secret.  This practically limits communications in the
+      group to be only one-to-one, rather than one-to-many.  As an
+      example, [I-D.ietf-core-oscore-groupcomm] can be used to secure
+      communications in a group by using exclusively its "pairwise
+      mode", without any recourse to digital signatures.
 
 2.  Overview
 
@@ -3043,38 +3056,40 @@ Table of Contents
    [I-D.ietf-ace-aif]
               Bormann, C., "An Authorization Information Format (AIF)
               for ACE", Work in Progress, Internet-Draft, draft-ietf-
-              ace-aif-00, 29 July 2020, <http://www.ietf.org/internet-
-              drafts/draft-ietf-ace-aif-00.txt>.
+              ace-aif-02, 17 February 2021,
+              <https://www.ietf.org/archive/id/draft-ietf-ace-aif-
+              02.txt>.
 
    [I-D.ietf-ace-oauth-authz]
               Seitz, L., Selander, G., Wahlstroem, E., Erdtman, S., and
               H. Tschofenig, "Authentication and Authorization for
               Constrained Environments (ACE) using the OAuth 2.0
               Framework (ACE-OAuth)", Work in Progress, Internet-Draft,
-              draft-ietf-ace-oauth-authz-36, 16 November 2020,
-              <http://www.ietf.org/internet-drafts/draft-ietf-ace-oauth-
-              authz-36.txt>.
+              draft-ietf-ace-oauth-authz-40, 26 April 2021,
+              <https://www.ietf.org/archive/id/draft-ietf-ace-oauth-
+              authz-40.txt>.
 
    [I-D.ietf-core-oscore-groupcomm]
-              Tiloca, M., Selander, G., Palombini, F., and J. Park,
-              "Group OSCORE - Secure Group Communication for CoAP", Work
-              in Progress, Internet-Draft, draft-ietf-core-oscore-
-              groupcomm-10, 2 November 2020, <http://www.ietf.org/
-              internet-drafts/draft-ietf-core-oscore-groupcomm-10.txt>.
+              Tiloca, M., Selander, G., Palombini, F., Mattsson, J. P.,
+              and J. Park, "Group OSCORE - Secure Group Communication
+              for CoAP", Work in Progress, Internet-Draft, draft-ietf-
+              core-oscore-groupcomm-11, 22 February 2021,
+              <https://www.ietf.org/archive/id/draft-ietf-core-oscore-
+              groupcomm-11.txt>.
 
    [I-D.ietf-cose-rfc8152bis-algs]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Initial Algorithms", Work in Progress, Internet-Draft,
               draft-ietf-cose-rfc8152bis-algs-12, 24 September 2020,
-              <http://www.ietf.org/internet-drafts/draft-ietf-cose-
+              <https://www.ietf.org/archive/id/draft-ietf-cose-
               rfc8152bis-algs-12.txt>.
 
    [I-D.ietf-cose-rfc8152bis-struct]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Structures and Process", Work in Progress, Internet-Draft,
-              draft-ietf-cose-rfc8152bis-struct-14, 24 September 2020,
-              <http://www.ietf.org/internet-drafts/draft-ietf-cose-
-              rfc8152bis-struct-14.txt>.
+              draft-ietf-cose-rfc8152bis-struct-15, 1 February 2021,
+              <https://www.ietf.org/archive/id/draft-ietf-cose-
+              rfc8152bis-struct-15.txt>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -3136,41 +3151,41 @@ Table of Contents
               L. Seitz, "Datagram Transport Layer Security (DTLS)
               Profile for Authentication and Authorization for
               Constrained Environments (ACE)", Work in Progress,
-              Internet-Draft, draft-ietf-ace-dtls-authorize-15, 20
-              January 2021, <http://www.ietf.org/internet-drafts/draft-
-              ietf-ace-dtls-authorize-15.txt>.
+              Internet-Draft, draft-ietf-ace-dtls-authorize-16, 8 March
+              2021, <https://www.ietf.org/archive/id/draft-ietf-ace-
+              dtls-authorize-16.txt>.
 
    [I-D.ietf-ace-mqtt-tls-profile]
               Sengul, C. and A. Kirby, "Message Queuing Telemetry
               Transport (MQTT)-TLS profile of Authentication and
               Authorization for Constrained Environments (ACE)
               Framework", Work in Progress, Internet-Draft, draft-ietf-
-              ace-mqtt-tls-profile-10, 18 December 2020,
-              <http://www.ietf.org/internet-drafts/draft-ietf-ace-mqtt-
-              tls-profile-10.txt>.
+              ace-mqtt-tls-profile-11, 14 April 2021,
+              <https://www.ietf.org/archive/id/draft-ietf-ace-mqtt-tls-
+              profile-11.txt>.
 
    [I-D.ietf-ace-oscore-profile]
               Palombini, F., Seitz, L., Selander, G., and M. Gunnarsson,
               "OSCORE Profile of the Authentication and Authorization
               for Constrained Environments Framework", Work in Progress,
-              Internet-Draft, draft-ietf-ace-oscore-profile-15, 26
-              January 2021, <http://www.ietf.org/internet-drafts/draft-
-              ietf-ace-oscore-profile-15.txt>.
+              Internet-Draft, draft-ietf-ace-oscore-profile-18, 14 April
+              2021, <https://www.ietf.org/archive/id/draft-ietf-ace-
+              oscore-profile-18.txt>.
 
    [I-D.ietf-core-coap-pubsub]
               Koster, M., Keranen, A., and J. Jimenez, "Publish-
               Subscribe Broker for the Constrained Application Protocol
               (CoAP)", Work in Progress, Internet-Draft, draft-ietf-
               core-coap-pubsub-09, 30 September 2019,
-              <http://www.ietf.org/internet-drafts/draft-ietf-core-coap-
+              <https://www.ietf.org/archive/id/draft-ietf-core-coap-
               pubsub-09.txt>.
 
    [I-D.ietf-core-groupcomm-bis]
               Dijk, E., Wang, C., and M. Tiloca, "Group Communication
               for the Constrained Application Protocol (CoAP)", Work in
               Progress, Internet-Draft, draft-ietf-core-groupcomm-bis-
-              02, 2 November 2020, <http://www.ietf.org/internet-drafts/
-              draft-ietf-core-groupcomm-bis-02.txt>.
+              03, 22 February 2021, <https://www.ietf.org/archive/id/
+              draft-ietf-core-groupcomm-bis-03.txt>.
 
    [RFC2093]  Harney, H. and C. Muckenhirn, "Group Key Management
               Protocol (GKMP) Specification", RFC 2093,

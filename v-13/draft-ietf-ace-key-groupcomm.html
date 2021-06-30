@@ -10,13 +10,13 @@
 <meta content="
        This document defines message formats and procedures for requesting and distributing group keying material using the ACE framework, to protect communications between group members. 
     " name="description">
-<meta content="xml2rfc 3.7.0" name="generator">
+<meta content="xml2rfc 3.8.0" name="generator">
 <meta content="draft-ietf-ace-key-groupcomm-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.7.0
-    Python 3.6.3
+  xml2rfc 3.8.0
+    Python 3.9.5
     appdirs 1.4.4
-    ConfigArgParse 1.4
+    ConfigArgParse 1.3
     google-i18n-address 2.4.0
     html5lib 1.1
     intervaltree 3.1.0
@@ -24,15 +24,178 @@
     kitchen 1.2.6
     lxml 4.6.3
     pycountry 20.7.3
-    pyflakes 2.3.1
+    pyflakes 2.3.0
     PyYAML 5.4.1
     requests 2.25.1
-    setuptools 38.2.4
-    six 1.11.0
+    setuptools 52.0.0
+    six 1.15.0
 -->
 <link href="draft-ietf-ace-key-groupcomm.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
-<style type="text/css">@import url('https://martinthomson.github.io/i-d-template/fonts.css');
+<style type="text/css">@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 html {
   --background-color: #fff;
@@ -82,11 +245,17 @@ body {
   color: var(--title-color);
 }
 #title {
-  padding: 1em 0 0.2em;
   font-size: 32px;
   line-height: 40px;
   clear: both;
 }
+#title, #rfcnum {
+  margin: 1.5em 0 0.2em;
+}
+#rfcnum + #title {
+  margin: 0.2em 0;
+}
+
 h1, h2, h3 {
   font-size: 22px;
   line-height: 27px;
@@ -837,11 +1006,11 @@ address div.right {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Key Provisioning for Group Communication</td>
-<td class="right">April 2021</td>
+<td class="right">June 2021</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Palombini &amp; Tiloca</td>
-<td class="center">Expires 16 October 2021</td>
+<td class="center">Expires 1 January 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -854,12 +1023,12 @@ address div.right {
 <dd class="internet-draft">draft-ietf-ace-key-groupcomm-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-04-14" class="published">14 April 2021</time>
+<time datetime="2021-06-30" class="published">30 June 2021</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2021-10-16">16 October 2021</time></dd>
+<dd class="expires"><time datetime="2022-01-01">1 January 2022</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -905,7 +1074,7 @@ address div.right {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 October 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 January 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -933,183 +1102,183 @@ address div.right {
         <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
 <a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
         </h2>
-<nav class="toc"><ul class="compact ulEmpty toc">
-<li class="compact ulEmpty toc" id="section-toc.1-1.1">
+<nav class="toc"><ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.1.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.1.2.1">
                 <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-terminology" class="xref">Terminology</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.2">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="xref">2</a>.  <a href="#name-overview" class="xref">Overview</a></p>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.3">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-authorization-to-join-a-gro" class="xref">Authorization to Join a Group</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.1">
                 <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-authorization-request" class="xref">Authorization Request</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.2">
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-authorization-response" class="xref">Authorization Response</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.3">
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-token-post" class="xref">Token Post</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.4">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-keying-material-provisionin" class="xref">Keying Material Provisioning and Group Membership Management</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.4.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.4.2.1">
                 <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-interface-at-the-kdc" class="xref">Interface at the KDC</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-retrieval-of-group-names-an" class="xref">Retrieval of Group Names and URIs</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.3">
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-joining-exchange" class="xref">Joining Exchange</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.4">
                 <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="xref">4.4</a>.  <a href="#name-retrieval-of-updated-keying" class="xref">Retrieval of Updated Keying Material</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.5">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.5">
                 <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="xref">4.5</a>.  <a href="#name-requesting-a-change-of-keyi" class="xref">Requesting a Change of Keying Material</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.6">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.6">
                 <p id="section-toc.1-1.4.2.6.1"><a href="#section-4.6" class="xref">4.6</a>.  <a href="#name-retrieval-of-public-keys-an" class="xref">Retrieval of Public Keys and Roles for Group Members</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.7">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.7">
                 <p id="section-toc.1-1.4.2.7.1"><a href="#section-4.7" class="xref">4.7</a>.  <a href="#name-update-of-public-key" class="xref">Update of Public Key</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.8">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.8">
                 <p id="section-toc.1-1.4.2.8.1"><a href="#section-4.8" class="xref">4.8</a>.  <a href="#name-retrieval-of-group-policies" class="xref">Retrieval of Group Policies</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.9">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.9">
                 <p id="section-toc.1-1.4.2.9.1"><a href="#section-4.9" class="xref">4.9</a>.  <a href="#name-retrieval-of-keying-materia" class="xref">Retrieval of Keying Material Version</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.10">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.10">
                 <p id="section-toc.1-1.4.2.10.1"><a href="#section-4.10" class="xref">4.10</a>. <a href="#name-group-leaving-request" class="xref">Group Leaving Request</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.5">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-removal-of-a-node-from-the-" class="xref">Removal of a Node from the Group</a></p>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.6">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-extended-scope-format" class="xref">Extended Scope Format</a></p>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.7">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-ace-groupcomm-parameters" class="xref">ACE Groupcomm Parameters</a></p>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.8">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-ace-groupcomm-error-identif" class="xref">ACE Groupcomm Error Identifiers</a></p>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.9">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.9.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.9.2.1">
                 <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="xref">9.1</a>.  <a href="#name-update-of-keying-material" class="xref">Update of Keying Material</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.9.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.2">
                 <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="xref">9.2</a>.  <a href="#name-block-wise-considerations" class="xref">Block-Wise Considerations</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.10">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.10.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.10.2.1">
                 <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="xref">10.1</a>.  <a href="#name-media-type-registrations" class="xref">Media Type Registrations</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.2">
                 <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="xref">10.2</a>.  <a href="#name-coap-content-formats-regist" class="xref">CoAP Content-Formats Registry</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.3">
                 <p id="section-toc.1-1.10.2.3.1"><a href="#section-10.3" class="xref">10.3</a>.  <a href="#name-oauth-parameters-registry" class="xref">OAuth Parameters Registry</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.4">
                 <p id="section-toc.1-1.10.2.4.1"><a href="#section-10.4" class="xref">10.4</a>.  <a href="#name-oauth-parameters-cbor-mappi" class="xref">OAuth Parameters CBOR Mappings Registry</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.5">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.5">
                 <p id="section-toc.1-1.10.2.5.1"><a href="#section-10.5" class="xref">10.5</a>.  <a href="#name-ace-groupcomm-parameters-re" class="xref">ACE Groupcomm Parameters Registry</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.6">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.6">
                 <p id="section-toc.1-1.10.2.6.1"><a href="#section-10.6" class="xref">10.6</a>.  <a href="#name-ace-groupcomm-key-registry" class="xref">ACE Groupcomm Key Registry</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.7">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.7">
                 <p id="section-toc.1-1.10.2.7.1"><a href="#section-10.7" class="xref">10.7</a>.  <a href="#name-ace-groupcomm-profile-regis" class="xref">ACE Groupcomm Profile Registry</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.8">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.8">
                 <p id="section-toc.1-1.10.2.8.1"><a href="#section-10.8" class="xref">10.8</a>.  <a href="#name-ace-groupcomm-policy-regist" class="xref">ACE Groupcomm Policy Registry</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.9">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.9">
                 <p id="section-toc.1-1.10.2.9.1"><a href="#section-10.9" class="xref">10.9</a>.  <a href="#name-sequence-number-synchroniza" class="xref">Sequence Number Synchronization Method Registry</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.10">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.10">
                 <p id="section-toc.1-1.10.2.10.1"><a href="#section-10.10" class="xref">10.10</a>. <a href="#name-interface-description-if-li" class="xref">Interface Description (if=) Link Target Attribute Values Registry</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.11">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.11">
                 <p id="section-toc.1-1.10.2.11.1"><a href="#section-10.11" class="xref">10.11</a>. <a href="#name-cbor-tags-registry" class="xref">CBOR Tags Registry</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.12">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.12">
                 <p id="section-toc.1-1.10.2.12.1"><a href="#section-10.12" class="xref">10.12</a>. <a href="#name-ace-scope-semantics" class="xref">ACE Scope Semantics</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.13">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.13">
                 <p id="section-toc.1-1.10.2.13.1"><a href="#section-10.13" class="xref">10.13</a>. <a href="#name-ace-groupcomm-errors" class="xref">ACE Groupcomm Errors</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.14">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.14">
                 <p id="section-toc.1-1.10.2.14.1"><a href="#section-10.14" class="xref">10.14</a>. <a href="#name-expert-review-instructions" class="xref">Expert Review Instructions</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.11">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-11" class="xref">11</a>. <a href="#name-references" class="xref">References</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.11.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.11.2.1">
                 <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="xref">11.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.11.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.11.2.2">
                 <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="xref">11.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.12">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.12">
             <p id="section-toc.1-1.12.1"><a href="#section-appendix.a" class="xref">Appendix A</a>.  <a href="#name-requirements-on-application" class="xref">Requirements on Application Profiles</a></p>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.13">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.13">
             <p id="section-toc.1-1.13.1"><a href="#section-appendix.b" class="xref">Appendix B</a>.  <a href="#name-extensibility-for-future-co" class="xref">Extensibility for Future COSE Algorithms</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.13.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.13.2.1">
                 <p id="section-toc.1-1.13.2.1.1"><a href="#section-b.1" class="xref">B.1</a>.  <a href="#name-format-of-sign_info_entry" class="xref">Format of 'sign_info_entry'</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.14">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.14">
             <p id="section-toc.1-1.14.1"><a href="#section-appendix.c" class="xref">Appendix C</a>.  <a href="#name-document-updates" class="xref">Document Updates</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.14.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.14.2.1">
                 <p id="section-toc.1-1.14.2.1.1"><a href="#section-c.1" class="xref">C.1</a>.  <a href="#name-version-04-to-05" class="xref">Version -04 to -05</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.14.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.14.2.2">
                 <p id="section-toc.1-1.14.2.2.1"><a href="#section-c.2" class="xref">C.2</a>.  <a href="#name-version-03-to-04" class="xref">Version -03 to -04</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.14.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.14.2.3">
                 <p id="section-toc.1-1.14.2.3.1"><a href="#section-c.3" class="xref">C.3</a>.  <a href="#name-version-02-to-03" class="xref">Version -02 to -03</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.14.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.14.2.4">
                 <p id="section-toc.1-1.14.2.4.1"><a href="#section-c.4" class="xref">C.4</a>.  <a href="#name-version-01-to-02" class="xref">Version -01 to -02</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.14.2.5">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.14.2.5">
                 <p id="section-toc.1-1.14.2.5.1"><a href="#section-c.5" class="xref">C.5</a>.  <a href="#name-version-00-to-01" class="xref">Version -00 to -01</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.15">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.15">
             <p id="section-toc.1-1.15.1"><a href="#section-appendix.d" class="xref"></a><a href="#name-acknowledgments" class="xref">Acknowledgments</a></p>
 </li>
-          <li class="compact ulEmpty toc" id="section-toc.1-1.16">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.16">
             <p id="section-toc.1-1.16.1"><a href="#section-appendix.e" class="xref"></a><a href="#name-authors-addresses" class="xref">Authors' Addresses</a></p>
 </li>
         </ul>
@@ -1150,6 +1319,10 @@ The ACE framework is based on CBOR <span>[<a href="#RFC8949" class="xref">RFC894
 <li class="normal" id="section-1.1-6.1">Transport profile, to indicate a profile of ACE as per Section 5.8.4.3 of <span>[<a href="#I-D.ietf-ace-oauth-authz" class="xref">I-D.ietf-ace-oauth-authz</a>]</span>. A transport profile specifies the communication protocol and communication security protocol between an ACE Client and Resource Server, as well as proof-of-possession methods, if it supports proof-of-possession access tokens, etc. Tranport profiles of ACE include, for instance, <span>[<a href="#I-D.ietf-ace-oscore-profile" class="xref">I-D.ietf-ace-oscore-profile</a>]</span>, <span>[<a href="#I-D.ietf-ace-dtls-authorize" class="xref">I-D.ietf-ace-dtls-authorize</a>]</span> and <span>[<a href="#I-D.ietf-ace-mqtt-tls-profile" class="xref">I-D.ietf-ace-mqtt-tls-profile</a>]</span>.<a href="#section-1.1-6.1" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-1.1-6.2">Application profile, that defines how applications enforce and use supporting security services they require. These services may include, for instance, provisioning, revocation and distribution of keying material. An application profile may define specific procedures and message formats.<a href="#section-1.1-6.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-1.1-6.3">Signature-only group, to indicate a group where group members use exclusively digital signatures to achieve source authentication.<a href="#section-1.1-6.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-1.1-6.4">Pairwise-only group, to indicate a group where group members never use digital signatures to achieve source authentication. Instead, they rather use exclusively pairwise symmetric keying material, derived from the group keying material and a static-static Diffie-Hellman secret. This practically limits communications in the group to be only one-to-one, rather than one-to-many. As an example, <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="xref">I-D.ietf-core-oscore-groupcomm</a>]</span> can be used to secure communications in a group by using exclusively its "pairwise mode", without any recourse to digital signatures.<a href="#section-1.1-6.4" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
@@ -3240,23 +3413,23 @@ This section gives some general guidelines for what the experts should be lookin
 <dd class="break"></dd>
 <dt id="I-D.ietf-ace-aif">[I-D.ietf-ace-aif]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"An Authorization Information Format (AIF) for ACE"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ace-aif-00</span>, <time datetime="2020-07-29" class="refDate">29 July 2020</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-ace-aif-00.txt">http://www.ietf.org/internet-drafts/draft-ietf-ace-aif-00.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"An Authorization Information Format (AIF) for ACE"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ace-aif-02</span>, <time datetime="2021-02-17" class="refDate">17 February 2021</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-ietf-ace-aif-02.txt">https://www.ietf.org/archive/id/draft-ietf-ace-aif-02.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</dt>
         <dd>
-<span class="refAuthor">Seitz, L.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Wahlstroem, E.</span>, <span class="refAuthor">Erdtman, S.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework (ACE-OAuth)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ace-oauth-authz-36</span>, <time datetime="2020-11-16" class="refDate">16 November 2020</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-ace-oauth-authz-36.txt">http://www.ietf.org/internet-drafts/draft-ietf-ace-oauth-authz-36.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Seitz, L.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Wahlstroem, E.</span>, <span class="refAuthor">Erdtman, S.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework (ACE-OAuth)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ace-oauth-authz-40</span>, <time datetime="2021-04-26" class="refDate">26 April 2021</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-ietf-ace-oauth-authz-40.txt">https://www.ietf.org/archive/id/draft-ietf-ace-oauth-authz-40.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-oscore-groupcomm">[I-D.ietf-core-oscore-groupcomm]</dt>
         <dd>
-<span class="refAuthor">Tiloca, M.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Palombini, F.</span>, and <span class="refAuthor">J. Park</span>, <span class="refTitle">"Group OSCORE - Secure Group Communication for CoAP"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-oscore-groupcomm-10</span>, <time datetime="2020-11-02" class="refDate">2 November 2020</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-core-oscore-groupcomm-10.txt">http://www.ietf.org/internet-drafts/draft-ietf-core-oscore-groupcomm-10.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Tiloca, M.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Palombini, F.</span>, <span class="refAuthor">Mattsson, J. P.</span>, and <span class="refAuthor">J. Park</span>, <span class="refTitle">"Group OSCORE - Secure Group Communication for CoAP"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-oscore-groupcomm-11</span>, <time datetime="2021-02-22" class="refDate">22 February 2021</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-ietf-core-oscore-groupcomm-11.txt">https://www.ietf.org/archive/id/draft-ietf-core-oscore-groupcomm-11.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-rfc8152bis-algs">[I-D.ietf-cose-rfc8152bis-algs]</dt>
         <dd>
-<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Initial Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-algs-12</span>, <time datetime="2020-09-24" class="refDate">24 September 2020</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-cose-rfc8152bis-algs-12.txt">http://www.ietf.org/internet-drafts/draft-ietf-cose-rfc8152bis-algs-12.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Initial Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-algs-12</span>, <time datetime="2020-09-24" class="refDate">24 September 2020</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-ietf-cose-rfc8152bis-algs-12.txt">https://www.ietf.org/archive/id/draft-ietf-cose-rfc8152bis-algs-12.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-rfc8152bis-struct">[I-D.ietf-cose-rfc8152bis-struct]</dt>
         <dd>
-<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Structures and Process"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-struct-14</span>, <time datetime="2020-09-24" class="refDate">24 September 2020</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-cose-rfc8152bis-struct-14.txt">http://www.ietf.org/internet-drafts/draft-ietf-cose-rfc8152bis-struct-14.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Structures and Process"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-struct-15</span>, <time datetime="2021-02-01" class="refDate">1 February 2021</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-ietf-cose-rfc8152bis-struct-15.txt">https://www.ietf.org/archive/id/draft-ietf-cose-rfc8152bis-struct-15.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -3311,23 +3484,23 @@ This section gives some general guidelines for what the experts should be lookin
 <dl class="references">
 <dt id="I-D.ietf-ace-dtls-authorize">[I-D.ietf-ace-dtls-authorize]</dt>
         <dd>
-<span class="refAuthor">Gerdes, S.</span>, <span class="refAuthor">Bergmann, O.</span>, <span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Selander, G.</span>, and <span class="refAuthor">L. Seitz</span>, <span class="refTitle">"Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ace-dtls-authorize-15</span>, <time datetime="2021-01-20" class="refDate">20 January 2021</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-ace-dtls-authorize-15.txt">http://www.ietf.org/internet-drafts/draft-ietf-ace-dtls-authorize-15.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Gerdes, S.</span>, <span class="refAuthor">Bergmann, O.</span>, <span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Selander, G.</span>, and <span class="refAuthor">L. Seitz</span>, <span class="refTitle">"Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ace-dtls-authorize-16</span>, <time datetime="2021-03-08" class="refDate">8 March 2021</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-ietf-ace-dtls-authorize-16.txt">https://www.ietf.org/archive/id/draft-ietf-ace-dtls-authorize-16.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-ace-mqtt-tls-profile">[I-D.ietf-ace-mqtt-tls-profile]</dt>
         <dd>
-<span class="refAuthor">Sengul, C.</span> and <span class="refAuthor">A. Kirby</span>, <span class="refTitle">"Message Queuing Telemetry Transport (MQTT)-TLS profile of Authentication and Authorization for Constrained Environments (ACE) Framework"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ace-mqtt-tls-profile-10</span>, <time datetime="2020-12-18" class="refDate">18 December 2020</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-ace-mqtt-tls-profile-10.txt">http://www.ietf.org/internet-drafts/draft-ietf-ace-mqtt-tls-profile-10.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Sengul, C.</span> and <span class="refAuthor">A. Kirby</span>, <span class="refTitle">"Message Queuing Telemetry Transport (MQTT)-TLS profile of Authentication and Authorization for Constrained Environments (ACE) Framework"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ace-mqtt-tls-profile-11</span>, <time datetime="2021-04-14" class="refDate">14 April 2021</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-ietf-ace-mqtt-tls-profile-11.txt">https://www.ietf.org/archive/id/draft-ietf-ace-mqtt-tls-profile-11.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-ace-oscore-profile">[I-D.ietf-ace-oscore-profile]</dt>
         <dd>
-<span class="refAuthor">Palombini, F.</span>, <span class="refAuthor">Seitz, L.</span>, <span class="refAuthor">Selander, G.</span>, and <span class="refAuthor">M. Gunnarsson</span>, <span class="refTitle">"OSCORE Profile of the Authentication and Authorization for Constrained Environments Framework"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ace-oscore-profile-15</span>, <time datetime="2021-01-26" class="refDate">26 January 2021</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-ace-oscore-profile-15.txt">http://www.ietf.org/internet-drafts/draft-ietf-ace-oscore-profile-15.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Palombini, F.</span>, <span class="refAuthor">Seitz, L.</span>, <span class="refAuthor">Selander, G.</span>, and <span class="refAuthor">M. Gunnarsson</span>, <span class="refTitle">"OSCORE Profile of the Authentication and Authorization for Constrained Environments Framework"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ace-oscore-profile-18</span>, <time datetime="2021-04-14" class="refDate">14 April 2021</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-ietf-ace-oscore-profile-18.txt">https://www.ietf.org/archive/id/draft-ietf-ace-oscore-profile-18.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-coap-pubsub">[I-D.ietf-core-coap-pubsub]</dt>
         <dd>
-<span class="refAuthor">Koster, M.</span>, <span class="refAuthor">Keranen, A.</span>, and <span class="refAuthor">J. Jimenez</span>, <span class="refTitle">"Publish-Subscribe Broker for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-coap-pubsub-09</span>, <time datetime="2019-09-30" class="refDate">30 September 2019</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-core-coap-pubsub-09.txt">http://www.ietf.org/internet-drafts/draft-ietf-core-coap-pubsub-09.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Koster, M.</span>, <span class="refAuthor">Keranen, A.</span>, and <span class="refAuthor">J. Jimenez</span>, <span class="refTitle">"Publish-Subscribe Broker for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-coap-pubsub-09</span>, <time datetime="2019-09-30" class="refDate">30 September 2019</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-ietf-core-coap-pubsub-09.txt">https://www.ietf.org/archive/id/draft-ietf-core-coap-pubsub-09.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-groupcomm-bis">[I-D.ietf-core-groupcomm-bis]</dt>
         <dd>
-<span class="refAuthor">Dijk, E.</span>, <span class="refAuthor">Wang, C.</span>, and <span class="refAuthor">M. Tiloca</span>, <span class="refTitle">"Group Communication for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-groupcomm-bis-02</span>, <time datetime="2020-11-02" class="refDate">2 November 2020</time>, <span>&lt;<a href="http://www.ietf.org/internet-drafts/draft-ietf-core-groupcomm-bis-02.txt">http://www.ietf.org/internet-drafts/draft-ietf-core-groupcomm-bis-02.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Dijk, E.</span>, <span class="refAuthor">Wang, C.</span>, and <span class="refAuthor">M. Tiloca</span>, <span class="refTitle">"Group Communication for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-groupcomm-bis-03</span>, <time datetime="2021-02-22" class="refDate">22 February 2021</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-ietf-core-groupcomm-bis-03.txt">https://www.ietf.org/archive/id/draft-ietf-core-groupcomm-bis-03.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2093">[RFC2093]</dt>
         <dd>
