@@ -2734,7 +2734,7 @@ Table of Contents
 10.3.  OAuth Parameters Registry
 
    The following registrations are done for the OAuth Parameters
-   Registry following the procedure specified in section 11.2 of
+   Registry following the procedure specified in Section 11.2 of
    [RFC6749]:
 
    o Parameter name: sign_info o Parameter usage location: token
@@ -2748,7 +2748,7 @@ Table of Contents
 10.4.  OAuth Parameters CBOR Mappings Registry
 
    The following registrations are done for the OAuth Parameters CBOR
-   Mappings Registry following the procedure specified in section 8.10
+   Mappings Registry following the procedure specified in Section 8.10
    of [I-D.ietf-ace-oauth-authz]:
 
    * Name: sign_info
