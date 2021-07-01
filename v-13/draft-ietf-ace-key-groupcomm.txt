@@ -1742,7 +1742,9 @@ Table of Contents
    application/ace-groupcomm+cbor.  The payload of the error response is
    a CBOR map including a newly generated 'kdcchallenge' value.  This is
    specified in the 'kdcchallenge' parameter, whose CBOR label is
-   defined in Section 7.
+   defined in Section 7.  In such a case the KDC MUST store the newly
+   generated value as the 'kdcchallenge' value associated to this
+   Client, possibly replacing the currently stored value.
 
    Otherwise, the handler verifies the PoP evidence contained in the
    'client_cred_verify' field of the request, using the public key
