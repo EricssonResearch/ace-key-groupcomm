@@ -1067,9 +1067,10 @@ Table of Contents
    If the request is not formatted correctly (i.e. required fields non
    received or received with incorrect format), the handler MUST respond
    with a 4.00 (Bad Request) error message.  The response MAY have
-   Content-Format set to application/ace+cbor and have a CBOR map as
-   payload.  For instance, the CBOR map can include the 'sign_info_res'
-   parameter, with 'pub_key_enc' set to Null if the Client sent its own
+   Content-Format set to application/ace-groupcomm+cbor and have a CBOR
+   map as payload.  For instance, the CBOR map can include a 'sign_info'
+   parameter formatted as 'sign_info_res' defined in Section 3.3.1, with
+   the 'pub_key_enc' element set to Null if the Client sent its own
    public key and the KDC is not set to store public keys of the group
    members.
 
@@ -2529,6 +2530,8 @@ Table of Contents
    | group_policies        | TBD  | map            | Section 4.1.2.1  |
    +-----------------------+------+----------------+------------------+
    | mgt_key_material      | TBD  | byte string    | Section 4.1.2.1  |
+   +-----------------------+------+----------------+------------------+
+   | sign_info             | TBD  | array          | Section 4.1.2.1  |
    +-----------------------+------+----------------+------------------+
    | gid                   | TBD  | array          | Section 4.1.1.1  |
    +-----------------------+------+----------------+------------------+
