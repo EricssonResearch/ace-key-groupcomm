@@ -5,8 +5,8 @@
 ACE Working Group                                           F. Palombini
 Internet-Draft                                               Ericsson AB
 Intended status: Standards Track                               M. Tiloca
-Expires: 1 January 2022                                          RISE AB
-                                                            30 June 2021
+Expires: 2 January 2022                                          RISE AB
+                                                             1 July 2021
 
 
            Key Provisioning for Group Communication using ACE
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 January 2022.
+   This Internet-Draft will expire on 2 January 2022.
 
 Copyright Notice
 
@@ -1409,10 +1409,11 @@ Table of Contents
       request.
 
    Then, the handler returns a 2.05 (Content) message response with
-   payload formatted as a CBOR map, containing only the 'pub_keys' and
-   'peer_roles' parameters from Section 4.1.2.1.  In particular,
-   'pub_keys' encodes the list of public keys of those group members
-   including the respective member identifiers, while 'peer_roles'
+   payload formatted as a CBOR map, containing the 'num', 'pub_keys' and
+   'peer_roles' parameters from Section 4.1.2.1.  In particular, 'num'
+   encodes the version number of the current group keying material,
+   'pub_keys' encodes the list of public keys of the selected group
+   members including the respective member identifiers, and 'peer_roles'
    encodes their respective role (or CBOR array of roles) in the group.
    The specific format of public keys as well as of node identifiers of
    group members is specified by the application profile (OPT1, REQ12).
@@ -2109,7 +2110,8 @@ Table of Contents
     Header: Content (Code=2.05)
     Content-Format: "application/ace-groupcomm+cbor"
     Payload (in CBOR diagnostic notation):
-      { "pub_keys": << [ PUB_KEY1, PUB_KEY2, PUB_KEY3 ] >>,
+      { "num": 5,
+        "pub_keys": << [ PUB_KEY1, PUB_KEY2, PUB_KEY3 ] >>,
         "peer_roles": ["sender", ["sender", "receiver"], "receiver"] }
 
       Figure 19: Example of Public Key Exchange to Request All Members
