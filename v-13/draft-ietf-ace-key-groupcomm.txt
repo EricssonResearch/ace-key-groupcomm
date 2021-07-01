@@ -633,10 +633,11 @@ Table of Contents
       indicating the encoding of public keys used in the groups
       identified by the 'gname' values, or has value Null indicating
       that the KDC does not act as repository of public keys for group
-      members.  Its acceptable integer values are taken from the "COSE
-      Header Parameters" Registry [COSE.Header.Parameters].  It is
-      REQUIRED of the application profiles to define specific values to
-      use for this parameter (REQ6).
+      members.  Its acceptable integer values are taken from the 'Label'
+      column of the "COSE Header Parameters" Registry
+      [COSE.Header.Parameters].  It is REQUIRED of the application
+      profiles to define specific values to use for this parameter
+      (REQ6).
 
    The CDDL notation [RFC8610] of the 'sign_info' parameter formatted as
    in the response is given below.
