@@ -249,12 +249,16 @@ Table of Contents
       providing it with the group keying material to communicate with
       the other group members (Section 4).
 
+   *  Allowing a group member to retrieve group keying material
+      (Section 4.4 and Section 4.5).
+
+   *  Allowing a group member to retrieve public keys of other group
+      members (Section 4.6) and to provide an updated public key
+      (Section 4.7).
+
    *  Allowing a group member to leave the group (Section 5).
 
    *  Evicting a group member from the group (Section 5).
-
-   *  Allowing a group member to retrieve keying material (Section 4.4
-      and Section 4.5).
 
    *  Renewing and re-distributing the group keying material (rekeying)
       upon a membership change in the group (Section 4.10 and

@@ -1368,13 +1368,15 @@ The ACE framework is based on CBOR <span>[<a href="#RFC8949" class="xref">RFC894
 <ul class="normal">
 <li class="normal" id="section-2-6.1">Authorizing a new node to join the group (<a href="#sec-auth" class="xref">Section 3</a>), and providing it with the group keying material to communicate with the other group members (<a href="#key-distr" class="xref">Section 4</a>).<a href="#section-2-6.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-2-6.2">Allowing a group member to leave the group (<a href="#sec-node-removal" class="xref">Section 5</a>).<a href="#section-2-6.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-2-6.2">Allowing a group member to retrieve group keying material (<a href="#update-keys" class="xref">Section 4.4</a> and <a href="#new-keys" class="xref">Section 4.5</a>).<a href="#section-2-6.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-2-6.3">Evicting a group member from the group (<a href="#sec-node-removal" class="xref">Section 5</a>).<a href="#section-2-6.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-2-6.3">Allowing a group member to retrieve public keys of other group members (<a href="#sec-key-retrieval" class="xref">Section 4.6</a>) and to provide an updated public key (<a href="#update-pub-key" class="xref">Section 4.7</a>).<a href="#section-2-6.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-2-6.4">Allowing a group member to retrieve keying material (<a href="#update-keys" class="xref">Section 4.4</a> and <a href="#new-keys" class="xref">Section 4.5</a>).<a href="#section-2-6.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-2-6.4">Allowing a group member to leave the group (<a href="#sec-node-removal" class="xref">Section 5</a>).<a href="#section-2-6.4" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-2-6.5">Renewing and re-distributing the group keying material (rekeying) upon a membership change in the group (<a href="#ssec-group-leaving" class="xref">Section 4.10</a> and <a href="#sec-node-removal" class="xref">Section 5</a>).<a href="#section-2-6.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-2-6.5">Evicting a group member from the group (<a href="#sec-node-removal" class="xref">Section 5</a>).<a href="#section-2-6.5" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-2-6.6">Renewing and re-distributing the group keying material (rekeying) upon a membership change in the group (<a href="#ssec-group-leaving" class="xref">Section 4.10</a> and <a href="#sec-node-removal" class="xref">Section 5</a>).<a href="#section-2-6.6" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="section-2-7"><a href="#fig-flow" class="xref">Figure 2</a> provides a high level overview of the message flow for a node joining a group communication setting, which can be expanded as follows.<a href="#section-2-7" class="pilcrow">¶</a></p>
