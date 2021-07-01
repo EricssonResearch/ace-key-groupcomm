@@ -633,8 +633,8 @@ Table of Contents
       indicating the encoding of public keys used in the groups
       identified by the 'gname' values, or has value Null indicating
       that the KDC does not act as repository of public keys for group
-      members.  Its acceptable values are taken from the "CWT
-      Confirmation Method" Registry defined in [RFC8747].  It is
+      members.  Its acceptable integer values are taken from the "COSE
+      Header Parameters" Registry [COSE.Header.Parameters].  It is
       REQUIRED of the application profiles to define specific values to
       use for this parameter (REQ6).
 
@@ -2765,15 +2765,22 @@ Table of Contents
    Mappings Registry following the procedure specified in Section 8.10
    of [I-D.ietf-ace-oauth-authz]:
 
-   * Name: sign_info
-   * CBOR Key: TBD (range -256 to 255)
-   * Value Type: any
-   * Reference: \[\[This specification\]\]
+   *  Name: sign_info
 
-   * Name: kdcchallenge
-   * CBOR Key: TBD (range -256 to 255)
-   * Value Type: byte string
-   * Reference: \[\[This specification\]\]
+   *  CBOR Key: TBD (range -256 to 255)
+
+   *  Value Type: any
+
+   *  Reference: [[This specification]]
+
+
+   *  Name: kdcchallenge
+
+   *  CBOR Key: TBD (range -256 to 255)
+
+   *  Value Type: byte string
+
+   *  Reference: [[This specification]]
 
 10.5.  ACE Groupcomm Parameters Registry
 
@@ -3053,6 +3060,11 @@ Table of Contents
               IANA, "COSE Algorithms",
               <https://www.iana.org/assignments/cose/
               cose.xhtml#algorithms>.
+
+   [COSE.Header.Parameters]
+              IANA, "COSE Header Parameters",
+              <https://www.iana.org/assignments/cose/cose.xhtml#header-
+              parameters>.
 
    [I-D.ietf-ace-aif]
               Bormann, C., "An Authorization Information Format (AIF)
