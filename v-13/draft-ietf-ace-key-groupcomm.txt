@@ -1195,18 +1195,13 @@ Table of Contents
 
    *  'pub_keys', MUST be present if 'get_pub_keys' was present in the
       request, otherwise it MUST NOT be present.  This parameter is a
-      CBOR byte string, which encodes the public keys of all the group
-      members paired with the respective member identifiers.  The
-      default encoding for public keys is COSE Keys, so the default
-      encoding for 'pub_keys' is a CBOR byte string wrapping a
-      COSE_KeySet (see [I-D.ietf-cose-rfc8152bis-struct]), which
-      contains the public keys of all the members of the group.  In
-      particular, each COSE Key in the COSE_KeySet includes the node
-      identifier of the corresponding group member as value of its 'kid'
-      key parameter.  Alternative specific encodings of this parameter
-      MAY be defined in applications of this specification (OPT1).  The
-      specific format of the node identifiers of group members MUST be
-      specified in the application profile (REQ12).
+      CBOR array specifying the public keys of the group members, i.e.,
+      of all of them or of the ones selected according to the
+      'get_pub_keys' parameter in the request.  In particular, each
+      element of the array is a CBOR byte string, which wraps the
+      original binary representation of a group member's public key.
+      The specific format of public keys is specified by the application
+      profile (REQ6).
 
    *  'peer_roles', MUST be present if 'pub_keys' is also present,
       otherwise it MUST NOT be present.  This parameter is a CBOR array
@@ -1692,7 +1687,7 @@ Table of Contents
    computed in the same way considered in Section 4.1.2.1 and defined by
    the specific application profile (REQ20a), with a newly generated N_C
    nonce and the previously received N_S.  The specific format of public
-   keys is specified by the application profile (OPT1).
+   keys is specified by the application profile (REQ6).
 
    The handler verifies that the group name GROUPNAME is a subset of the
    'scope' stored in the access token associated to the client
@@ -1851,7 +1846,7 @@ Table of Contents
  Payload (in CBOR diagnostic notation,
           with KEY being a CBOR byte strings):
    { "gkty": 13, "key": KEY, "num": 12, "exp": 1609459200,
-     "pub_keys": << [ PUB_KEY1, PUB_KEY2 ] >>,
+     "pub_keys": [ PUB_KEY1, PUB_KEY2 ],
      "peer_roles": ["sender", ["sender", "receiver"]] }
 
          Figure 13: Example of First Exchange for Group Joining
@@ -2115,7 +2110,7 @@ Table of Contents
      Content-Format: "application/ace-groupcomm+cbor"
      Payload (in CBOR diagnostic notation):
        { "num": 5,
-         "pub_keys": << [ PUB_KEY1, PUB_KEY2, PUB_KEY3 ] >>,
+         "pub_keys": [ PUB_KEY1, PUB_KEY2, PUB_KEY3 ],
          "peer_roles": ["sender", ["sender", "receiver"], "receiver"],
          "peer_identifiers": [ ID1, ID2, ID3 ] }
 
@@ -2148,7 +2143,7 @@ Table of Contents
              Header: Content (Code=2.05)
              Content-Format: "application/ace-groupcomm+cbor"
              Payload (in CBOR diagnostic notation):
-               { "pub_keys": << [ PUB_KEY3 ] >>,
+               { "pub_keys": [ PUB_KEY3 ],
                  "peer_roles": ["receiver"] }
 
        Figure 21: Example of Public Key Exchange to Request Specific
@@ -2522,7 +2517,7 @@ Table of Contents
    +-----------------------+------+----------------+------------------+
    | exp                   | TBD  | int            | Section 4.1.2.1  |
    +-----------------------+------+----------------+------------------+
-   | pub_keys              | TBD  | byte string    | Section 4.1.2.1  |
+   | pub_keys              | TBD  | array          | Section 4.1.2.1  |
    +-----------------------+------+----------------+------------------+
    | peer_roles            | TBD  | array          | Section 4.1.2.1  |
    +-----------------------+------+----------------+------------------+
@@ -3269,8 +3264,8 @@ Appendix A.  Requirements on Application Profiles
    *  REQ5: If used, specify the acceptable values for
       'sign_key_parameters' (see Section 3.3).
 
-   *  REQ6: If used, specify the acceptable values for 'pub_key_enc'
-      (see Section 3.3).
+   *  REQ6: Specify the acceptable formats of public keys and, if used,
+      the acceptable values for 'pub_key_enc' (see Section 3.3).
 
    *  REQ7: Register a Resource Type for the root url-path, which is
       used to discover the correct url to access at the KDC (see
@@ -3339,10 +3334,6 @@ Appendix A.  Requirements on Application Profiles
 
    *  REQ23: Specify and register the identifier of newly defined
       semantics for binary scopes (see Section 6).
-
-   *  OPT1: Optionally, specify the encoding of public keys, of
-      'client_cred', and of 'pub_keys' if COSE_Keys are not used (see
-      Section 4.1.2.1).
 
    *  OPT2: Optionally, specify the negotiation of parameter values for
       signature algorithm and signature keys, if 'sign_info' is not used
