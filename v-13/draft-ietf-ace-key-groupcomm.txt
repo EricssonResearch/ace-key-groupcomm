@@ -5,8 +5,8 @@
 ACE Working Group                                           F. Palombini
 Internet-Draft                                               Ericsson AB
 Intended status: Standards Track                               M. Tiloca
-Expires: 3 January 2022                                          RISE AB
-                                                             2 July 2021
+Expires: 5 January 2022                                          RISE AB
+                                                             4 July 2021
 
 
            Key Provisioning for Group Communication using ACE
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 January 2022.
+   This Internet-Draft will expire on 5 January 2022.
 
 Copyright Notice
 
@@ -118,7 +118,7 @@ Table of Contents
 
    This document expands the ACE framework [I-D.ietf-ace-oauth-authz] to
    define the message exchanges used to request, distribute and renew
-   the keying material in a group communication scenario, e.g. based on
+   the keying material in a group communication scenario, e.g., based on
    multicast [I-D.ietf-core-groupcomm-bis] or on publishing-subscribing
    [I-D.ietf-core-coap-pubsub].  The ACE framework is based on CBOR
    [RFC8949], so CBOR is the format used in this specification.
@@ -555,7 +555,7 @@ Table of Contents
    at least until it receives a join request from it (see Section 4.3),
    to be able to verify that the Client possesses its own private key.
    The same challenge MAY be reused several times by the Client, to
-   generate a new proof of possession, e.g. in case of update of the
+   generate a new proof of possession, e.g., in case of update of the
    public key, or to join a different group with a different signing
    key, so it is RECOMMENDED that the KDC keeps storing the
    'kdcchallenge' after the first join is processed as well.  If the KDC
@@ -660,7 +660,7 @@ Table of Contents
       gname = tstr
 
    This format is consistent with every counter signature algorithm
-   currently considered in [I-D.ietf-cose-rfc8152bis-algs], i.e. with
+   currently considered in [I-D.ietf-cose-rfc8152bis-algs], i.e., with
    algorithms that have only the COSE key type as their COSE capability.
    Appendix B describes how the format of each 'sign_info_entry' can be
    generalized for possible future registered algorithms having a
@@ -694,7 +694,7 @@ Table of Contents
    interface at the KDC to perform the following actions:
 
    *  The Client can get the current keying material, for cases such as
-      expiration, loss or suspected mismatch, due to e.g. reboot or
+      expiration, loss or suspected mismatch, due to e.g., reboot or
       missed group rekeying.  This is described in Section 4.4.
 
    *  The Client can retrieve new keying material for itself.  This is
@@ -717,7 +717,7 @@ Table of Contents
 
    Upon receiving a request from a Client, the KDC MUST check that it is
    storing a valid access token from that Client for the group name
-   associated to the endpoint.  If that is not the case, i.e. the KDC
+   associated to the endpoint.  If that is not the case, i.e., the KDC
    does not store a valid access token or this is not valid for that
    Client for the group name, the KDC MUST respond to the Client with a
    4.01 (Unauthorized) error message.
@@ -805,7 +805,7 @@ Table of Contents
       that node.  These resources support the POST method.
 
    It is REQUIRED of the application profiles of this specification to
-   define what operations (e.g.  CoAP methods) are allowed on each
+   define what operations (e.g., CoAP methods) are allowed on each
    resource, for each role defined in Section 3.1 according to REQ2
    (REQ8).
 
@@ -881,7 +881,7 @@ Table of Contents
    the corresponding values:
 
    *  'scope', with value the specific resource at the KDC that the
-      Client is authorized to access, i.e. group or topic name, and
+      Client is authorized to access, i.e., group or topic name, and
       role(s).  This value is a CBOR byte string wrapping one scope
       entry, as defined in Section 3.1.
 
@@ -890,7 +890,7 @@ Table of Contents
       present if the KDC stores the public keys of the nodes in the
       group and distributes them to the Client; it is useless to have
       here if the set of public keys of the members of the group is
-      known in another way, e.g. it was provided by the AS.  Note that
+      known in another way, e.g., it was provided by the AS.  Note that
       including this parameter may result in a large message size for
       the following response, which can be inconvenient for resource-
       constrained devices.
@@ -938,7 +938,7 @@ Table of Contents
       Section 4.1.3.1).
 
       Finally, the 'get_pub_keys' parameter MUST NOT have the arrays
-      'role_filter' and 'id_filter' as both empty, i.e. in CBOR
+      'role_filter' and 'id_filter' as both empty, i.e., in CBOR
       diagnostic notation: [ bool, [ ], [ ] ].  Thus, if this parameter
       is received as formatted in that way, it has to be considered
       malformed.
@@ -1003,7 +1003,7 @@ Table of Contents
       'client_cred_verify', and MUST specify which of those approaches
       is used in which case (REQ20).
 
-      If the token was not posted (e.g. if it is used directly to
+      If the token was not posted (e.g., if it is used directly to
       validate TLS instead), it is REQUIRED of the specific profile to
       define how the challenge N_S is generated (REQ21).
 
@@ -1053,7 +1053,7 @@ Table of Contents
    (Unauthorized) error message.
 
    If the request does not include a 'scope' field, the KDC is expected
-   to understand which group and role(s) the Client is requesting (e.g.
+   to understand which group and role(s) the Client is requesting (e.g.,
    there is only one the Client has been granted).  If the KDC can not
    recognize which scope the Client is requesting, it MUST respond with
    a 4.00 (Bad Request) error message.
@@ -1068,7 +1068,7 @@ Table of Contents
    [I-D.ietf-ace-oauth-authz], in which case the content format MUST be
    set to application/ace+cbor.
 
-   If the request is not formatted correctly (i.e. required fields non
+   If the request is not formatted correctly (i.e., required fields non
    received or received with incorrect format), the handler MUST respond
    with a 4.00 (Bad Request) error message.  The response MAY have
    Content-Format set to application/ace-groupcomm+cbor and have a CBOR
@@ -1137,7 +1137,7 @@ Table of Contents
       group.
 
    *  The handler assigns a name identifier NODENAME to the Client, and
-      creates a sub-resource to /ace-group/GROUPNAME/ at the KDC (e.g.
+      creates a sub-resource to /ace-group/GROUPNAME/ at the KDC (e.g.,
       "/ace-group/GROUPNAME/nodes/NODENAME").
 
    *  The handler associates the node identifier NODENAME to the access
@@ -1592,7 +1592,7 @@ Table of Contents
    of the 'error' field MUST be set to 1 ("Request inconsistent with the
    current roles").
 
-   If the KDC is currently not able to serve this request, i.e. to
+   If the KDC is currently not able to serve this request, i.e., to
    generate new individual keying material for the requesting client,
    the KDC MUST respond with a 5.03 (Service Unavailable) error message.
    The response MUST have Content-Format set to application/ace-
@@ -1740,7 +1740,7 @@ Table of Contents
    of the 'error' field MUST be set to 1 ("Request inconsistent with the
    current roles")
 
-   If the request is not formatted correctly (i.e. required fields non
+   If the request is not formatted correctly (i.e., required fields non
    received or received with incorrect format), the handler MUST respond
    with a 4.00 (Bad Request) error message.  If the request contains
    unknown or non-expected fields present, the handler MUST silently
@@ -1962,7 +1962,7 @@ Table of Contents
    processing or inability to retrieve the necessary keying material).
 
    It is application dependent and pertaining to the particular message
-   exchange (e.g.  [I-D.ietf-core-oscore-groupcomm]) to set up these
+   exchange (e.g., [I-D.ietf-core-oscore-groupcomm]) to set up these
    policies for instructing clients to retain incoming messages and for
    how long (OPT5).  This allows clients to possibly decrypt such
    messages after getting updated keying material, rather than just
@@ -2010,7 +2010,7 @@ Table of Contents
           Figure 15: Example of Key Distribution Request-Response
 
    Alternatively, the re-distribution of keying material can be
-   initiated by the KDC, which e.g.:
+   initiated by the KDC, which e.g.,:
 
    *  Can make the ace-group/GROUPNAME resource Observable [RFC7641],
       and send notifications to observer Clients when the keying
@@ -2046,7 +2046,7 @@ Table of Contents
 4.5.  Requesting a Change of Keying Material
 
    Beside possible expiration, the client may need to communicate to the
-   KDC its need for the keying material to be renewed, e.g. due to
+   KDC its need for the keying material to be renewed, e.g., due to
    exhaustion of AEAD nonces, if AEAD is used for protecting group
    communication.  Depending on the application profile (OPT9), this can
    result in renewal of individual keying material, group keying
@@ -2058,7 +2058,7 @@ Table of Contents
    material.
 
    To this end, the client performs a Key Renewal Request/Response
-   exchange with the KDC, i.e. it sends a CoAP PUT request to the /ace-
+   exchange with the KDC, i.e., it sends a CoAP PUT request to the /ace-
    group/GROUPNAME/nodes/NODENAME endpoint at the KDC, where GROUPNAME
    is the group name and NODENAME is its node name, and formatted as
    defined in Section 4.1.6.2.
@@ -2099,7 +2099,7 @@ Table of Contents
 
    Note the difference between the Key Distribution Request and the Key
    Renewal Request: while the first one only triggers distribution (the
-   renewal might have happened independently, e.g. because of
+   renewal might have happened independently, e.g., because of
    expiration), the second one triggers the KDC to produce new
    individual keying material for the requesting node.
 
@@ -2187,9 +2187,9 @@ Table of Contents
    the group, and replace the currently stored one.
 
    To this end, the Client performs a Public Key Update Request/Response
-   exchange with the KDC, i.e. it sends a CoAP POST request to the /ace-
-   group/GROUPNAME/nodes/NODENAME/pub-key endpoint at the KDC, where
-   GROUPNAME is the group name and NODENAME is its node name.
+   exchange with the KDC, i.e., it sends a CoAP POST request to the
+   /ace-group/GROUPNAME/nodes/NODENAME/pub-key endpoint at the KDC,
+   where GROUPNAME is the group name and NODENAME is its node name.
 
    The request is formatted as specified in Section 4.1.7.1.
 
@@ -2350,7 +2350,7 @@ Table of Contents
 
    Note that, after having left the group, a node may wish to join it
    again.  Then, as long as the node is still authorized to join the
-   group, i.e. it still has a valid access token, it can request to re-
+   group, i.e., it still has a valid access token, it can request to re-
    join the group directly to the KDC without needing to retrieve a new
    access token from the AS.  This means that the KDC might decide to
    keep track of nodes with valid access tokens, before deleting all
@@ -2417,7 +2417,7 @@ Table of Contents
    The extended format is intended only for the 'scope' claim of access
    tokens, for the cases where the claim takes as value a CBOR byte
    string.  That is, the extended format does not apply to the 'scope'
-   parameter included in ACE messages, i.e. the Authorization Request
+   parameter included in ACE messages, i.e., the Authorization Request
    and Authorization Response exchanged between the client and the
    Authorization Server (see Sections 5.8.1 and 5.8.2 of
    [I-D.ietf-ace-oauth-authz]), the AS Request Creation Hints message
@@ -2606,7 +2606,7 @@ Table of Contents
 9.  Security Considerations
 
    When a Client receives a message from a sender for the first time, it
-   needs to have a mechanism in place to avoid replay, e.g.
+   needs to have a mechanism in place to avoid replay, e.g.,
    Appendix B.2 of [RFC8613].  In case the Client rebooted and lost the
    security state used to protect previous communication with that
    sender, such a mechanism is useful for the recipient to be on the
@@ -3314,7 +3314,7 @@ Appendix A.  Requirements on Application Profiles
       used to discover the correct url to access at the KDC (see
       Section 4.1).
 
-   *  REQ8: Define what operations (e.g.  CoAP methods) are allowed on
+   *  REQ8: Define what operations (e.g., CoAP methods) are allowed on
       each resource, for each role defined in REQ2 (see Section 3.3).
 
    *  REQ9: Specify the exact encoding of group identifier (see
@@ -3360,7 +3360,7 @@ Appendix A.  Requirements on Application Profiles
       those approaches is used in which case (see Section 4.1.2.1).
 
    *  REQ21: Specify how the nonce N_S is generated, if the token was
-      not posted (e.g. if it is used directly to validate TLS instead).
+      not posted (e.g., if it is used directly to validate TLS instead).
 
    *  REQ22: Specify if 'mgt_key_material' used, and if yes specify its
       format and content (see Section 4.1.2.1).  If the usage of
@@ -3437,14 +3437,14 @@ B.1.  Format of 'sign_info_entry'
 
    The format of each 'sign_info_entry' (see Section 3.3.1) is
    generalized as follows.  Given N the number of elements of the
-   'sign_parameters' array, i.e. the number of COSE capabilities of the
+   'sign_parameters' array, i.e., the number of COSE capabilities of the
    signature algorithm, then:
 
    *  'sign_key_parameters' is replaced by N elements 'sign_capab_i',
       each of which is a CBOR array.
 
-   *  The i-th array following 'sign_parameters', i.e. 'sign_capab_i' (i
-      = 0, ..., N-1), is the array of COSE capabilities for the
+   *  The i-th array following 'sign_parameters', i.e., 'sign_capab_i'
+      (i = 0, ..., N-1), is the array of COSE capabilities for the
       algorithm capability specified in 'sign_parameters'[i].
 
       sign_info_entry =
