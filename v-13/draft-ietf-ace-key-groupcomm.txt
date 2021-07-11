@@ -2816,7 +2816,7 @@ Table of Contents
 
    *  CBOR Key: TBD (range -256 to 255)
 
-   *  Value Type: array
+   *  Value Type: simple value Null / array
 
    *  Reference: [[This specification]]
 
