@@ -5,8 +5,8 @@
 ACE Working Group                                           F. Palombini
 Internet-Draft                                               Ericsson AB
 Intended status: Standards Track                               M. Tiloca
-Expires: 5 January 2022                                          RISE AB
-                                                             4 July 2021
+Expires: 12 January 2022                                         RISE AB
+                                                            11 July 2021
 
 
            Key Provisioning for Group Communication using ACE
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 January 2022.
+   This Internet-Draft will expire on 12 January 2022.
 
 Copyright Notice
 
@@ -402,7 +402,7 @@ Table of Contents
       In each entry, the encoding of the role identifiers is application
       specific, and part of the requirements for the application profile
       (REQ2).  In particular, the application profile may specify CBOR
-      values to use for abbreviating role identifiers (OPT8).
+      values to use for abbreviating role identifiers (OPT7).
 
       An example of CDDL definition [RFC8610] of scope using the format
       above, with group name and role identifiers encoded as text
@@ -571,11 +571,11 @@ Table of Contents
    Note that the CBOR map specified as payload of the 2.01 (Created)
    response may include further parameters, e.g. according to the
    signalled transport profile of ACE.  Application profiles MAY define
-   the additional parameters to use within this exchange (OPT3).
+   the additional parameters to use within this exchange (OPT2).
 
    Application profiles of this specification MAY define alternative
    specific negotiations of parameter values for the signature algorithm
-   and signature keys, if 'sign_info' is not used (OPT2).
+   and signature keys, if 'sign_info' is not used (OPT1).
 
 3.3.1.  'sign_info' Parameter
 
@@ -745,7 +745,7 @@ Table of Contents
 
    Section 8 of this specification defines an initial set of error
    identifiers, as possible values for the 'error' field.  Application
-   profiles of this specification MAY define additional value (OPT12).
+   profiles of this specification MAY define additional value (OPT11).
 
 4.1.  Interface at the KDC
 
@@ -1012,7 +1012,7 @@ Table of Contents
       certificate.  In such a case, this parameter has as value the URI
       of the certificate.  This parameter is encoded as a CBOR text
       string.  Alternative specific encodings of this parameter MAY be
-      defined in applications of this specification (OPT4).
+      defined in applications of this specification (OPT3).
 
    *  'control_uri', with value a full URI, encoded as a CBOR text
       string.  If 'control_uri' is supported by the Client, the Client
@@ -1024,7 +1024,7 @@ Table of Contents
       removal from the group Section 5.  If the KDC does not implement
       mechanisms using this resource, it can just ignore this parameter.
       Other additional functionalities of this resource MAY be defined
-      in application profiles of this specifications (OPT10).  In
+      in application profiles of this specifications (OPT9).  In
       particular, this resource is intended for communications
       concerning exclusively the group or topic specified in the 'scope'
       parameter.
@@ -1081,7 +1081,7 @@ Table of Contents
    If the request contained unknown or non-expected fields present, the
    handler MUST silently drop them and continue processing.  Application
    profiles MAY define optional or mandatory payload formats for
-   specific error cases (OPT6).
+   specific error cases (OPT5).
 
    If the KDC manages the group members' public keys, the handler checks
    if one is included in the 'client_cred' field.  If so, the KDC
@@ -1128,7 +1128,7 @@ Table of Contents
    If an eligible public key for the Client is neither present in the
    'client_cred' field nor already stored, it is RECOMMENDED that the
    handler stops the processing and responds with a 4.00 (Bad Request)
-   error message.  Applications profiles MAY define alternatives (OPT7).
+   error message.  Applications profiles MAY define alternatives (OPT6).
 
    If all the verifications above succeed, the handler performs the
    following actions.
@@ -1560,7 +1560,7 @@ Table of Contents
    Application profiles MAY also use this handler to rekey the whole
    group.  It is up to the application profiles to specify if this
    handler supports renewal of individual keying material, renewal of
-   the group keying material or both (OPT9).
+   the group keying material or both (OPT8).
 
    The handler expects a request with empty payload.  In case the
    request has a non-empty payload, the KDC MUST respond with a 4.00
@@ -1602,7 +1602,7 @@ Table of Contents
 
    If all verifications succeed, the handler returns a 2.05 (Content)
    message containing newly-generated keying material for the Client,
-   and/or, if the application profiles requires it (OPT9), starts the
+   and/or, if the application profiles requires it (OPT8), starts the
    complete group rekeying.  The payload of the response is formatted as
    a CBOR map.  The specific format of newly-generated individual keying
    material for group members, or of the information to derive it, and
@@ -1746,7 +1746,7 @@ Table of Contents
    unknown or non-expected fields present, the handler MUST silently
    ignore them and continue processing.  Application profiles MAY define
    optional or mandatory payload formats for specific error cases
-   (OPT6).
+   (OPT5).
 
    If the KDC cannot retrieve the 'kdcchallenge' associated to this
    Client (see Section 3.3), the KDC MUST respond with a 4.00 Bad
@@ -1964,7 +1964,7 @@ Table of Contents
    It is application dependent and pertaining to the particular message
    exchange (e.g., [I-D.ietf-core-oscore-groupcomm]) to set up these
    policies for instructing clients to retain incoming messages and for
-   how long (OPT5).  This allows clients to possibly decrypt such
+   how long (OPT4).  This allows clients to possibly decrypt such
    messages after getting updated keying material, rather than just
    consider them non valid messages to discard right away.
 
@@ -2048,7 +2048,7 @@ Table of Contents
    Beside possible expiration, the client may need to communicate to the
    KDC its need for the keying material to be renewed, e.g., due to
    exhaustion of AEAD nonces, if AEAD is used for protecting group
-   communication.  Depending on the application profile (OPT9), this can
+   communication.  Depending on the application profile (OPT8), this can
    result in renewal of individual keying material, group keying
    material, or both.
 
@@ -2245,7 +2245,7 @@ Table of Contents
    send a number of the later requests including an identifier of the
    updated public key, to signal nodes that they need to retrieve it.
    How that is done depends on the group communication protocol used,
-   and therefore is application profile specific (OPT11).
+   and therefore is application profile specific (OPT10).
 
 4.8.  Retrieval of Group Policies
 
@@ -3378,43 +3378,43 @@ Appendix A.  Requirements on Application Profiles
    *  REQ24: Specify and register the identifier of newly defined
       semantics for binary scopes (see Section 6).
 
-   *  OPT2: Optionally, specify the negotiation of parameter values for
+   *  OPT1: Optionally, specify the negotiation of parameter values for
       signature algorithm and signature keys, if 'sign_info' is not used
       (see Section 3.3).
 
-   *  OPT3: Optionally, specify the additional parameters used in the
+   *  OPT2: Optionally, specify the additional parameters used in the
       Token Post exchange (see Section 3.3).
 
-   *  OPT4: Optionally, specify the encoding of 'pub_keys_repos' if the
+   *  OPT3: Optionally, specify the encoding of 'pub_keys_repos' if the
       default is not used (see Section 4.1.2.1).
 
-   *  OPT5: Optionally, specify policies that instruct clients to retain
+   *  OPT4: Optionally, specify policies that instruct clients to retain
       messages and for how long, if they are unsuccessfully decrypted
       (see Section 4.4).  This makes it possible to decrypt such
       messages after getting updated keying material.
 
-   *  OPT6: Optionally, specify possible or required payload formats for
+   *  OPT5: Optionally, specify possible or required payload formats for
       specific error cases.
 
-   *  OPT7: Optionally, specify the behavior of the handler in case of
+   *  OPT6: Optionally, specify the behavior of the handler in case of
       failure to retrieve a public key for the specific node (see
       Section 4.1.2.1).
 
-   *  OPT8: Optionally, specify CBOR values to use for abbreviating
+   *  OPT7: Optionally, specify CBOR values to use for abbreviating
       identifiers of roles in the group or topic (see Section 3.1).
 
-   *  OPT9: Optionally, specify for the KDC to perform group rekeying
+   *  OPT8: Optionally, specify for the KDC to perform group rekeying
       (together or instead of renewing individual keying material) when
       receiving a Key Renewal Request (see Section 4.5).
 
-   *  OPT10: Optionally, specify the functionalities implemented at the
+   *  OPT9: Optionally, specify the functionalities implemented at the
       'control_uri' resource hosted at the Client, including message
       exchange encoding and other details (see Section 4.1.2.1).
 
-   *  OPT11: Optionally, specify how the identifier of the sender's
+   *  OPT10: Optionally, specify how the identifier of the sender's
       public key is included in the group request (see Section 4.7).
 
-   *  OPT12: Optionally, specify additional identifiers of error types,
+   *  OPT11: Optionally, specify additional identifiers of error types,
       as values of the 'error' field in an error response from the KDC.
 
 Appendix B.  Extensibility for Future COSE Algorithms
