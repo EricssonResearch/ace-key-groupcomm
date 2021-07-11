@@ -659,9 +659,9 @@ Table of Contents
 
       gname = tstr
 
-   This format is consistent with every counter signature algorithm
-   currently considered in [I-D.ietf-cose-rfc8152bis-algs], i.e., with
-   algorithms that have only the COSE key type as their COSE capability.
+   This format is consistent with every signature algorithm currently
+   considered in [I-D.ietf-cose-rfc8152bis-algs], i.e., with algorithms
+   that have only the COSE key type as their COSE capability.
    Appendix B describes how the format of each 'sign_info_entry' can be
    generalized for possible future registered algorithms having a
    different set of COSE capabilities.
@@ -855,9 +855,9 @@ Table of Contents
       of this CBOR array corresponds to the element of group identifier
       i in the 'gid' array.
 
-   If the KDC does not find any group associated with the specified
-   group identifiers, the handler returns a response with payload
-   formatted as a CBOR byte string of zero length.
+   If the KDC does not find any group associated to the specified group
+   identifiers, the handler returns a response with payload formatted as
+   a CBOR byte string of zero length.
 
    Note that the KDC only verifies that the node is authorized by the AS
    to access this resource.  Nodes that are not members of the group but
@@ -1444,11 +1444,11 @@ Table of Contents
       the selected group members has in the group.
 
    The specific format of public keys as well as of node identifiers of
-   group members is specified by the application profile (OPT1, REQ12).
+   group members is specified by the application profile (REQ6, REQ12).
 
-   If the KDC does not store any public key associated with the
-   specified node identifiers, the handler returns a response with
-   payload formatted as a CBOR byte string of zero length.
+   If the KDC does not store any public key associated to the specified
+   node identifiers, the handler returns a response with payload
+   formatted as a CBOR byte string of zero length.
 
    The handler MAY enforce one of the following policies, in order to
    handle possible node identifiers that are included in the 'id_filter'
@@ -1878,7 +1878,8 @@ Table of Contents
           with KEY being a CBOR byte strings):
    { "gkty": 13, "key": KEY, "num": 12, "exp": 1609459200,
      "pub_keys": [ PUB_KEY1, PUB_KEY2 ],
-     "peer_roles": ["sender", ["sender", "receiver"]] }
+     "peer_roles": ["sender", ["sender", "receiver"]],
+     "peer_identifiers": [ ID1, ID2 ] }
 
          Figure 13: Example of First Exchange for Group Joining
 
@@ -1928,8 +1929,10 @@ Table of Contents
    Section 4.1.2.2.  Application profiles may define alternative ways of
    retrieving the keying material, such as sending separate requests to
    different resources at the KDC (Section 4.1.2.2, Section 4.1.3.2,
-   Section 4.1.4.1).  After distributing the new group keying material,
-   the KDC MUST increment the version number of the keying material.
+   Section 4.1.4.1).  The KDC MUST increment the version number of the
+   current keying material, before distributing the newly generated
+   keying material to the group.  After that, the KDC SHOULD store the
+   distributed keying material in persistent storage.
 
 4.4.  Retrieval of Updated Keying Material
 
@@ -2167,7 +2170,7 @@ Table of Contents
              Uri-Path: "pub-key"
              Content-Format: "application/ace-groupcomm+cbor"
              Payload:
-               { "get_pub_keys": [true, [], ["c3"]] }
+               { "get_pub_keys": [true, [], [ ID3 ]] }
 
              Response:
 
@@ -2175,7 +2178,8 @@ Table of Contents
              Content-Format: "application/ace-groupcomm+cbor"
              Payload (in CBOR diagnostic notation):
                { "pub_keys": [ PUB_KEY3 ],
-                 "peer_roles": ["receiver"] }
+                 "peer_roles": [ "receiver" ],
+                 "peer_identifiers": [ ID3 ] }
 
        Figure 21: Example of Public Key Exchange to Request Specific
                             Members Public Keys
@@ -2344,9 +2348,11 @@ Table of Contents
    new group keying material and securely distribute it to all the
    current group members but the leaving node, using the message format
    of the Key Distribution Response (see Section 4.4).  Application
-   profiles may define alternative message formats.  Before distributing
-   the new group keying material, the KDC MUST increment the version
-   number of the keying material.
+   profiles may define alternative message formats.  The KDC MUST
+   increment the version number of the current keying material, before
+   distributing the newly generated keying material to the group.  After
+   that, the KDC SHOULD store the distributed keying material in
+   persistent storage.
 
    Note that, after having left the group, a node may wish to join it
    again.  Then, as long as the node is still authorized to join the
